@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['monopole_tower', 'supporting_tower']
+
+roboflow:
+  workspace: adi-s-workspace-fs5zf
+  project: my-first-project-rirf6
+  version: 1
+  license: Private
+  url: https://app.roboflow.com/adi-s-workspace-fs5zf/my-first-project-rirf6/1
