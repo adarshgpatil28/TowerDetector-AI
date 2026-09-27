@@ -1,19 +1,6 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.env
-.venv/
-env/
-venv/
-
-# IDE
+﻿__pycache__/
+*.pyc
+*.bak
+runs/phase2_output/
+runs/detect/predict/
 .vscode/
-.idea/
-
-# OS
-Thumbs.db
-.DS_Store
-
-# Temporary outputs
-*.tmp

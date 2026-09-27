@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TowerVision | AI Tower Component Detection</title>
+  <title>AI TowerVision | Infrastructure Component Detection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -11,9 +11,12 @@
 </head>
 <body>
 
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
   <!-- Top Navigation Header -->
   <header class="app-header">
-    <div class="header-container">
+    <div class="header-inner">
       <div class="brand-group">
         <div class="brand-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -24,241 +27,528 @@
           </svg>
         </div>
         <div>
-          <h1 class="brand-title">TowerVision</h1>
-          <p class="brand-subtitle">AI Tower Component Detection</p>
+          <div class="brand-name">AI TowerVision</div>
+          <div class="brand-subtitle">AI Infrastructure Inspection</div>
         </div>
       </div>
 
-      <div class="header-metadata">
-        <div class="meta-item">
-          <span class="meta-label">MODEL</span>
-          <span class="meta-val">YOLOv8</span>
+      <nav class="nav-links">
+        <a href="#dashboard" class="nav-link active">Dashboard</a>
+        <a href="#inspection" class="nav-link">Inspection</a>
+        <a href="#results" class="nav-link">Results</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
+
+      <div class="header-telemetry">
+        <div class="telemetry-pill">
+          <span class="pill-k">AI MODEL</span>
+          <span class="pill-v">YOLOv8</span>
         </div>
-        <div class="meta-item">
-          <span class="meta-label">CLASSES</span>
-          <span class="meta-val">2</span>
+        <div class="telemetry-pill">
+          <span class="pill-k">CLASSES</span>
+          <span class="pill-v">2</span>
         </div>
-        <div class="status-pill" id="systemStatusPill">
-          <span class="status-dot"></span>
-          <span id="systemStatusText">AI ENGINE ONLINE</span>
+        <div class="system-status-indicator" id="systemStatusPill">
+          <span class="status-pulse-dot"></span>
+          <span id="systemStatusText">SYSTEM READY</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Main Content Layout -->
-  <main class="dashboard-main">
-    <div class="dashboard-grid">
+  <!-- Main Container -->
+  <div class="main-wrapper">
 
-      <!-- LEFT COLUMN: IMAGE INSPECTION -->
-      <section class="panel-card inspection-panel">
-        <div class="card-header">
-          <span class="section-tag">SECTION 01</span>
-          <h2 class="card-title">Image Inspection</h2>
-          <p class="card-desc">Upload a transmission or telecom tower photograph for automated structural classification.</p>
+    <!-- Hero / Dashboard Section -->
+    <section class="hero-section" id="dashboard">
+      <div class="hero-left">
+        <div class="hero-badges">
+          <span class="badge-accent">AI INSPECTION READY</span>
+          <span class="badge-neutral">2 DETECTION CLASSES</span>
+        </div>
+        <h1 class="hero-title">AI-Powered Tower<br><span class="gradient-text">Component Detection</span></h1>
+        <p class="hero-desc">Analyze aerial and ground tower images with intelligent computer vision to evaluate photographic quality and automatically identify supporting and monopole tower structures.</p>
+        <div class="hero-actions">
+          <a href="#inspection" class="btn-primary-hero">
+            <span>START INSPECTION</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+          <a href="#about" class="btn-secondary-hero">HOW IT WORKS</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="landing-preview-card">
+          <div class="preview-card-header">
+            <span class="live-tag"><span class="dot-blink"></span>CV SCAN RETICLE</span>
+            <span class="model-tag">PRECISION 0.96</span>
+          </div>
+          <div class="preview-graphic">
+            <div class="radar-scanline"></div>
+            <div class="mock-bbox-overlay">
+              <span class="mock-bbox-label">SUPPORTING TOWER 96%</span>
+            </div>
+            <div class="preview-abstract-tower">
+              <div class="tower-svg-wrap">
+                <svg width="150" height="165" viewBox="0 0 100 120" fill="none" stroke="#2DD4BF" stroke-width="1.6" opacity="0.85">
+                  <line x1="20" y1="115" x2="45" y2="10"></line>
+                  <line x1="80" y1="115" x2="55" y2="10"></line>
+                  <line x1="45" y1="10" x2="55" y2="10"></line>
+                  <line x1="26" y1="90" x2="74" y2="90"></line>
+                  <line x1="33" y1="65" x2="67" y2="65"></line>
+                  <line x1="40" y1="40" x2="60" y2="40"></line>
+                  <line x1="20" y1="115" x2="74" y2="90"></line>
+                  <line x1="80" y1="115" x2="26" y2="90"></line>
+                  <line x1="26" y1="90" x2="67" y2="65"></line>
+                  <line x1="74" y1="90" x2="33" y2="65"></line>
+                  <line x1="33" y1="65" x2="60" y2="40"></line>
+                  <line x1="67" y1="65" x2="40" y2="40"></line>
+                  <line x1="40" y1="40" x2="55" y2="10"></line>
+                  <line x1="60" y1="40" x2="45" y2="10"></line>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="preview-card-footer">
+            <div class="stat-pill"><span class="k">TARGET:</span> Supporting / Monopole</div>
+            <div class="stat-pill"><span class="k">QUALITY GATE:</span> Active</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inspection Workspace Section -->
+    <section class="inspection-section" id="inspection">
+      <div class="section-title-wrap">
+        <span class="sub-label">INSPECTION WORKSPACE</span>
+        <h2 class="main-heading">Structural Component Analysis</h2>
+      </div>
+
+      <div class="inspection-grid">
+
+        <!-- LEFT COLUMN: IMAGE UPLOAD / WORKSTATION -->
+        <div class="glass-card workstation-card">
+          <div class="card-head">
+            <span class="card-tag">INPUT WORKSTATION</span>
+            <h3 class="card-title">Tower Image Inspection</h3>
+            <p class="card-subtitle">Upload a transmission or telecom tower photograph for automated structural classification.</p>
+          </div>
+
+          <!-- Quick Sample Selector -->
+          <div class="quick-sample-bar">
+            <span class="sample-label">Dataset Sample:</span>
+            <select id="sampleSelect" class="sample-select">
+              <option value="">-- Choose from Test Dataset --</option>
+            </select>
+            <button type="button" id="btnLoadSample" class="btn-sample" disabled>Load Sample</button>
+          </div>
+
+          <!-- Drag and Drop Workstation Area -->
+          <div class="upload-dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden>
+            
+            <!-- Empty state inside dropzone -->
+            <div class="dropzone-unloaded" id="dropzoneEmpty">
+              <div class="dropzone-icon-circle">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <div class="dz-heading">Upload Tower Image</div>
+              <div class="dz-sub">Drag &amp; Drop your image here or <span class="accent-link">Browse Image</span></div>
+              <div class="dz-formats">Supported: JPG / JPEG / PNG</div>
+            </div>
+
+            <!-- Loaded state preview inside dropzone -->
+            <div class="dropzone-loaded hidden" id="previewWrap">
+              <div class="preview-img-container">
+                <img id="imagePreview" alt="Input Preview" class="preview-img">
+              </div>
+              <div class="preview-overlay-bar">
+                <span class="preview-status-tag">READY FOR INSPECTION</span>
+                <button type="button" id="btnChangeImage" class="btn-change-file">Change Image</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upload Progress & Metadata -->
+          <div class="upload-progress-box hidden" id="uploadProgressBox">
+            <div class="progress-bar-head">
+              <span id="uploadProgressLabel">Uploading Image...</span>
+              <span id="uploadProgressPercent">100%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="uploadProgressFill"></div>
+            </div>
+          </div>
+
+          <!-- Image Telemetry Details -->
+          <div class="image-telemetry-box hidden" id="metadataBox">
+            <div class="telemetry-box-title">IMAGE TELEMETRY</div>
+            <div class="telemetry-fields">
+              <div class="telemetry-cell">
+                <span class="cell-label">FILE NAME</span>
+                <span class="cell-value" id="metaFilename">-</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="cell-label">DIMENSIONS</span>
+                <span class="cell-value" id="metaDimensions">-</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="cell-label">FILE SIZE</span>
+                <span class="cell-value" id="metaSize">-</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="cell-label">STATUS</span>
+                <span class="cell-value text-teal" id="metaStatus">Ready</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inspection Parameters -->
+          <div class="parameters-card">
+            <div class="param-header-group">
+              <span class="param-title">INSPECTION PARAMETERS</span>
+              <p class="param-desc">Adjust detection sensitivity and image-quality tolerance.</p>
+            </div>
+            <div class="param-inputs-grid">
+              <div class="param-control">
+                <div class="param-info-row">
+                  <span class="param-name">Confidence Gate</span>
+                  <span class="param-badge" id="confVal">0.60</span>
+                </div>
+                <input type="range" id="confThreshold" min="0.10" max="1.00" step="0.05" value="0.60" class="styled-slider">
+              </div>
+              <div class="param-control">
+                <div class="param-info-row">
+                  <span class="param-name">Sharpness Gate (Laplacian Var)</span>
+                  <span class="param-badge" id="blurVal">100.0</span>
+                </div>
+                <input type="number" id="blurThreshold" min="10" max="2500" value="100.0" step="25" class="styled-number-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons-group">
+            <button type="button" id="btnExecute" class="btn-execute-main" disabled>
+              <span class="btn-spinner hidden" id="btnSpinner"></span>
+              <span id="btnExecuteIcon" class="btn-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </span>
+              <span id="btnExecuteText">WAITING FOR IMAGE</span>
+            </button>
+            <button type="button" id="btnReset" class="btn-reset-secondary">RESET INSPECTION</button>
+          </div>
         </div>
 
-        <!-- Sample Selector Banner -->
-        <div class="sample-loader-box">
-          <span class="sample-label">Quick Sample:</span>
-          <select id="sampleSelect" class="sample-dropdown">
-            <option value="">-- Choose from Test Dataset --</option>
-          </select>
-          <button id="btnLoadSample" class="btn-secondary btn-sm" disabled>Load Sample</button>
-        </div>
+        <!-- RIGHT COLUMN: INSPECTION RESULTS -->
+        <div class="glass-card results-card" id="results">
+          <div class="card-head">
+            <span class="card-tag">RESULTS &amp; TELEMETRY</span>
+            <h3 class="card-title">Inspection Results</h3>
+            <p class="card-subtitle">Real-time computer vision quality gate, structural classifications, and telemetry analytics.</p>
+          </div>
 
-        <!-- Drag & Drop Upload Area -->
-        <div class="upload-dropzone" id="dropzone">
-          <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden>
-          <div class="dropzone-content" id="dropzoneEmpty">
-            <div class="upload-icon-wrap">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
+          <!-- Horizontal Processing Pipeline -->
+          <div class="pipeline-stepper" id="pipelineStepper">
+            <div class="pipe-node" id="pNode1">
+              <div class="pipe-icon-box"><span class="pipe-sym">1</span></div>
+              <span class="pipe-text">Image Uploaded</span>
+            </div>
+            <div class="pipe-line"></div>
+            <div class="pipe-node" id="pNode2">
+              <div class="pipe-icon-box"><span class="pipe-sym">2</span></div>
+              <span class="pipe-text">Quality Checked</span>
+            </div>
+            <div class="pipe-line"></div>
+            <div class="pipe-node" id="pNode3">
+              <div class="pipe-icon-box"><span class="pipe-sym">3</span></div>
+              <span class="pipe-text">YOLO Detection</span>
+            </div>
+            <div class="pipe-line"></div>
+            <div class="pipe-node" id="pNode4">
+              <div class="pipe-icon-box"><span class="pipe-sym">4</span></div>
+              <span class="pipe-text">Result Generation</span>
+            </div>
+            <div class="pipe-line"></div>
+            <div class="pipe-node" id="pNode5">
+              <div class="pipe-icon-box"><span class="pipe-sym">5</span></div>
+              <span class="pipe-text">Inspection Complete</span>
+            </div>
+          </div>
+
+          <!-- Initial Waiting State -->
+          <div class="results-idle-state" id="resultsEmptyState">
+            <div class="idle-icon-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="1.8">
+                <polygon points="12 2 2 22 22 22 12 2"></polygon>
+                <line x1="12" y1="6" x2="12" y2="22"></line>
               </svg>
             </div>
-            <p class="dropzone-title">Upload Tower Image</p>
-            <p class="dropzone-desc">Drag & drop or <span class="highlight-link">browse</span></p>
-            <span class="format-badge">Supported: JPG / JPEG / PNG</span>
+            <h4 class="idle-title">AWAITING INSPECTION EXECUTION</h4>
+            <p class="idle-desc">Upload or select a tower image, configure parameters if needed, and click <strong>EXECUTE INSPECTION</strong> to begin automated analysis.</p>
+            <div class="idle-chips">
+              <span class="chip">Image Quality: Waiting</span>
+              <span class="chip">Detection: Waiting</span>
+            </div>
           </div>
 
-          <!-- Active Preview -->
-          <div class="preview-wrap hidden" id="previewWrap">
-            <img id="imagePreview" alt="Inspection Preview" class="preview-img">
+          <!-- Image Quality Report Card -->
+          <div class="quality-report-card hidden" id="diagnosticCard">
+            <div class="quality-report-header">
+              <span class="q-card-label">IMAGE QUALITY REPORT</span>
+              <span class="q-badge badge-pass" id="qcStatusBadge">✓ ACCEPTED</span>
+            </div>
+            <div class="checklist-grid">
+              <div class="check-item"><span class="chk-icon">✓</span> Image Received</div>
+              <div class="check-item"><span class="chk-icon">✓</span> Quality Evaluated</div>
+              <div class="check-item"><span class="chk-icon">✓</span> Blur Detection</div>
+              <div class="check-item"><span class="chk-icon">✓</span> Exposure Analysis</div>
+              <div class="check-item"><span class="chk-icon">✓</span> Resolution Check</div>
+              <div class="check-item" id="chkFinalStatus"><span class="chk-icon">✓</span> Quality Approved</div>
+            </div>
+
+            <div class="quality-metrics-row">
+              <div class="q-metric-cell">
+                <span class="qm-k">SHARPNESS (VARIANCE)</span>
+                <span class="qm-v" id="qcSharpnessVal">-</span>
+                <span class="qm-sub" id="qcSharpnessThreshold">Target: ≥ 100.0</span>
+              </div>
+              <div class="q-metric-cell">
+                <span class="qm-k">BRIGHTNESS (GRAYSCALE)</span>
+                <span class="qm-v" id="qcBrightnessVal">-</span>
+                <span class="qm-sub">Acceptable: [40 - 225]</span>
+              </div>
+              <div class="q-metric-cell">
+                <span class="qm-k">EXPOSURE STATUS</span>
+                <span class="qm-v" id="qcExposureVal">Normal</span>
+                <span class="qm-sub">Lighting Check</span>
+              </div>
+            </div>
+
+            <!-- Rejection Alert Message -->
+            <div class="rejection-alert-panel hidden" id="rejectionMsgBox">
+              <div class="rejection-header-row">
+                <span class="rejection-icon">✕</span>
+                <span class="rejection-title">IMAGE QUALITY REJECTED</span>
+              </div>
+              <p class="rejection-text" id="rejectionReasonText">Image is too blurry.</p>
+              <p class="rejection-note">Object detection is aborted to maintain safety and inspection reliability. Please upload a clear photograph.</p>
+            </div>
+          </div>
+
+          <!-- Detection Output Container (Visible only when accepted) -->
+          <div class="detection-output-container hidden" id="detectionOutputWrap">
+            
+            <!-- Result Image Preview -->
+            <div class="result-image-box">
+              <div class="result-image-top">
+                <span class="res-tag">RESULT PREVIEW</span>
+                <button type="button" id="btnDownload" class="btn-download-action">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  <span>DOWNLOAD RESULT</span>
+                </button>
+              </div>
+              <div class="annotated-render-frame">
+                <img id="annotatedImage" alt="Annotated Tower Detection" class="annotated-render-img">
+              </div>
+            </div>
+
+            <!-- Detection Statistics Cards -->
+            <div class="stats-cards-grid">
+              <div class="detection-stat-card card-supporting">
+                <div class="stat-card-top">
+                  <span class="stat-class-name">Supporting Tower</span>
+                  <span class="stat-count-badge" id="suppCountBadge">01</span>
+                </div>
+                <div class="stat-conf-val" id="suppConfidence">96.2%</div>
+                <div class="stat-conf-label">Confidence</div>
+              </div>
+
+              <div class="detection-stat-card card-monopole">
+                <div class="stat-card-top">
+                  <span class="stat-class-name">Monopole Tower</span>
+                  <span class="stat-count-badge" id="monoCountBadge">00</span>
+                </div>
+                <div class="stat-conf-val" id="monoConfidence">Not detected</div>
+                <div class="stat-conf-label">Confidence</div>
+              </div>
+
+              <div class="detection-stat-card card-total">
+                <div class="stat-card-top">
+                  <span class="stat-class-name">Total Objects</span>
+                  <span class="stat-count-badge" id="totalDetectionsVal">01</span>
+                </div>
+                <div class="stat-conf-val text-teal" id="overallConfidenceVal">96.2%</div>
+                <div class="stat-conf-label">Average Confidence</div>
+              </div>
+            </div>
+
+            <!-- Detection Confidence Progress Visualization -->
+            <div class="confidence-visual-card">
+              <div class="card-mini-title">DETECTION CONFIDENCE</div>
+              <div class="bars-container">
+                <div class="bar-group">
+                  <div class="bar-info">
+                    <span class="bar-name">Supporting Tower</span>
+                    <span class="bar-percent" id="barSuppPercent">96.2%</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill fill-supporting" id="barSuppFill" style="width: 96.2%;"></div>
+                  </div>
+                </div>
+
+                <div class="bar-group">
+                  <div class="bar-info">
+                    <span class="bar-name">Monopole Tower</span>
+                    <span class="bar-percent" id="barMonoPercent">0.0%</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill fill-monopole" id="barMonoFill" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="bar-group">
+                  <div class="bar-info">
+                    <span class="bar-name">Average Confidence</span>
+                    <span class="bar-percent" id="barOverallPercent">96.2%</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill fill-overall" id="barOverallFill" style="width: 96.2%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Processing Status & Summary Cards Grid -->
+            <div class="dual-telemetry-grid">
+              
+              <!-- Processing Status Card -->
+              <div class="sub-telemetry-card">
+                <div class="card-mini-title">PROCESSING STATUS</div>
+                <div class="status-items-list">
+                  <div class="status-row">
+                    <span><span class="green-chk">✓</span> Image Upload</span>
+                    <span class="status-tag-sm tag-completed" id="psUpload">COMPLETED</span>
+                  </div>
+                  <div class="status-row">
+                    <span><span class="green-chk">✓</span> Image Quality Check</span>
+                    <span class="status-tag-sm tag-completed" id="psQuality">COMPLETED</span>
+                  </div>
+                  <div class="status-row">
+                    <span><span class="green-chk">✓</span> Object Detection</span>
+                    <span class="status-tag-sm tag-completed" id="psDetection">COMPLETED</span>
+                  </div>
+                  <div class="status-row">
+                    <span><span class="green-chk">✓</span> Result Generation</span>
+                    <span class="status-tag-sm tag-completed" id="psResults">COMPLETED</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Inspection Summary Card -->
+              <div class="sub-telemetry-card">
+                <div class="card-mini-title">INSPECTION SUMMARY</div>
+                <div class="summary-details-list">
+                  <div class="sum-row"><span class="sk">Status:</span><span class="sv highlight-green" id="sumStatus">Detection Completed</span></div>
+                  <div class="sum-row"><span class="sk">Image:</span><span class="sv" id="sumFilename">-</span></div>
+                  <div class="sum-row"><span class="sk">Image Quality:</span><span class="sv" id="sumQuality">Accepted</span></div>
+                  <div class="sum-row"><span class="sk">Objects Detected:</span><span class="sv" id="sumTotal">1</span></div>
+                  <div class="sum-row"><span class="sk">Supporting Tower:</span><span class="sv" id="sumSupp">1</span></div>
+                  <div class="sum-row"><span class="sk">Monopole Tower:</span><span class="sv" id="sumMono">0</span></div>
+                  <div class="sum-row"><span class="sk">Average Confidence:</span><span class="sv text-teal" id="sumAvgConf">96.2%</span></div>
+                  <div class="sum-row"><span class="sk">Processing Time:</span><span class="sv" id="sumLatency">0.8s</span></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bounding Box Telemetry Table -->
+            <div class="telemetry-table-wrap">
+              <div class="card-mini-title">BOUNDING BOX TELEMETRY</div>
+              <div class="table-scroll-container">
+                <table class="telemetry-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Class Name</th>
+                      <th>Confidence</th>
+                      <th>Bounding Box Coordinates [x1, y1, width, height]</th>
+                    </tr>
+                  </thead>
+                  <tbody id="telemetryTableBody">
+                    <!-- Populated via app.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Selected Image Metadata Card -->
-        <div class="telemetry-box hidden" id="metadataBox">
-          <div class="telemetry-title">IMAGE TELEMETRY</div>
-          <div class="telemetry-grid">
-            <div class="telemetry-item">
-              <span class="t-label">FILENAME</span>
-              <span class="t-val" id="metaFilename">-</span>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <div class="section-title-wrap">
+        <span class="sub-label">ABOUT PLATFORM</span>
+        <h2 class="main-heading">AI TowerVision Architecture</h2>
+      </div>
+
+      <div class="glass-card about-card">
+        <div class="about-content-grid">
+          <div class="about-desc-col">
+            <h3 class="about-platform-title">AI-Based Tower Component Detection and Visualization</h3>
+            <p class="about-paragraph">
+              AI TowerVision is a modern computer vision platform designed for infrastructure and telecommunication tower inspection. The system utilizes deep neural object detection (Ultralytics YOLOv8) coupled with OpenCV automated image quality gating to analyze aerial and ground photographs.
+            </p>
+            <div class="about-classes-pill">
+              <span class="cls-chip"><strong>Class 0:</strong> monopole_tower</span>
+              <span class="cls-chip"><strong>Class 1:</strong> supporting_tower</span>
             </div>
-            <div class="telemetry-item">
-              <span class="t-label">DIMENSIONS</span>
-              <span class="t-val" id="metaDimensions">-</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="t-label">FILE SIZE</span>
-              <span class="t-val" id="metaSize">-</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="t-label">STATUS</span>
-              <span class="t-val ready-text" id="metaStatus">Ready for inspection</span>
+          </div>
+
+          <div class="about-pipeline-col">
+            <div class="about-pipe-heading">FIVE-STAGE INSPECTION PIPELINE</div>
+            <div class="about-pipe-steps">
+              <div class="pipe-step-box">
+                <span class="step-num">01</span>
+                <div><strong>Image Upload:</strong> Ingestion, dimension verification, and buffer preparation.</div>
+              </div>
+              <div class="pipe-step-box">
+                <span class="step-num">02</span>
+                <div><strong>Quality Analysis:</strong> Variance of Laplacian blur detection and exposure analysis.</div>
+              </div>
+              <div class="pipe-step-box">
+                <span class="step-num">03</span>
+                <div><strong>YOLOv8 Detection:</strong> Inference on trained weights (<code>best.pt</code>) with confidence gating.</div>
+              </div>
+              <div class="pipe-step-box">
+                <span class="step-num">04</span>
+                <div><strong>Bounding Box &amp; Confidence:</strong> Coordinate extraction and class-specific averages.</div>
+              </div>
+              <div class="pipe-step-box">
+                <span class="step-num">05</span>
+                <div><strong>Visual Results:</strong> High-resolution annotated image and telemetry export.</div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Config Collapsible (Advanced) -->
-        <details class="config-accordion">
-          <summary>⚙️ Inspection Parameters (Thresholds)</summary>
-          <div class="config-grid">
-            <div class="config-field">
-              <label for="confThreshold">Confidence Gate: <span id="confVal">0.60</span></label>
-              <input type="range" id="confThreshold" min="0.10" max="1.00" step="0.05" value="0.60">
-            </div>
-            <div class="config-field">
-              <label for="blurThreshold">Sharpness Threshold: <span id="blurVal">100.0</span></label>
-              <input type="number" id="blurThreshold" min="10" max="2500" value="100.0" step="25">
-            </div>
-          </div>
-        </details>
+  </div>
 
-        <!-- Action Controls -->
-        <div class="action-buttons">
-          <button id="btnExecute" class="btn-primary" disabled>Execute Inspection</button>
-          <button id="btnReset" class="btn-secondary">Reset</button>
-        </div>
-      </section>
-
-      <!-- RIGHT COLUMN: INSPECTION RESULTS -->
-      <section class="panel-card results-panel">
-        <div class="card-header">
-          <span class="section-tag">SECTION 02</span>
-          <h2 class="card-title">Inspection Results</h2>
-          <p class="card-desc">Diagnostic quality gate and neural network component telemetry.</p>
-        </div>
-
-        <!-- Processing Sequence Timeline -->
-        <div class="sequence-timeline" id="sequenceTimeline">
-          <div class="seq-step" id="stepUpload"><span class="seq-icon">○</span> Image uploaded</div>
-          <div class="seq-step" id="stepQC"><span class="seq-icon">○</span> Image quality checked</div>
-          <div class="seq-step" id="stepDetection"><span class="seq-icon">○</span> Running YOLO detection...</div>
-          <div class="seq-step" id="stepResults"><span class="seq-icon">○</span> Generating results</div>
-          <div class="seq-step" id="stepComplete"><span class="seq-icon">○</span> Inspection completed</div>
-        </div>
-
-        <!-- Initial Ready State Box -->
-        <div class="results-empty-state" id="resultsEmptyState">
-          <div class="empty-icon-wrap">🗼</div>
-          <p class="empty-main">Status: READY</p>
-          <p class="empty-sub">Image Quality: <span class="dim">Waiting</span> &nbsp;|&nbsp; Detection: <span class="dim">Waiting</span></p>
-        </div>
-
-        <!-- Diagnostic Quality Card (Shown after execution) -->
-        <div class="diagnostic-card hidden" id="diagnosticCard">
-          <div class="diag-header">
-            <span class="diag-title">IMAGE QUALITY</span>
-            <span class="diag-badge" id="qcStatusBadge">● ACCEPTED</span>
-          </div>
-          <div class="diag-metrics-grid">
-            <div class="metric-box">
-              <span class="metric-lbl">Sharpness (Variance)</span>
-              <span class="metric-num" id="qcSharpnessVal">-</span>
-              <span class="metric-sub" id="qcSharpnessThreshold">Target: ≥ 100.0</span>
-            </div>
-            <div class="metric-box">
-              <span class="metric-lbl">Brightness (Grayscale)</span>
-              <span class="metric-num" id="qcBrightnessVal">-</span>
-              <span class="metric-sub">Range: [40 - 225]</span>
-            </div>
-            <div class="metric-box">
-              <span class="metric-lbl">Exposure Status</span>
-              <span class="metric-num" id="qcExposureVal">Normal</span>
-              <span class="metric-sub">Lighting Check</span>
-            </div>
-          </div>
-          <div class="rejection-msg-box hidden" id="rejectionMsgBox">
-            <span class="rejection-alert-icon">⛔</span>
-            <span id="rejectionReasonText">Image rejected: Quality validation failed.</span>
-          </div>
-        </div>
-
-        <!-- Detection Results Section (Only if accepted) -->
-        <div class="detection-output-wrap hidden" id="detectionOutputWrap">
-          <div class="component-cards-grid">
-            <!-- Monopole Tower Card -->
-            <div class="comp-card" id="cardMonopole">
-              <span class="comp-badge" id="monoCountBadge">0 DETECTED</span>
-              <h4 class="comp-name">MONOPOLE TOWER</h4>
-              <p class="comp-lbl">Confidence</p>
-              <div class="comp-confidence" id="monoConfidence">No detections</div>
-            </div>
-
-            <!-- Supporting Tower Card -->
-            <div class="comp-card" id="cardSupporting">
-              <span class="comp-badge" id="suppCountBadge">0 DETECTED</span>
-              <h4 class="comp-name">SUPPORTING TOWER</h4>
-              <p class="comp-lbl">Confidence</p>
-              <div class="comp-confidence" id="suppConfidence">No detections</div>
-            </div>
-          </div>
-
-          <!-- Overall Analytics Summary Row -->
-          <div class="overall-summary-box">
-            <div>
-              <span class="summary-lbl">TOTAL DETECTED OBJECTS</span>
-              <span class="summary-val" id="totalDetectionsVal">0</span>
-            </div>
-            <div class="text-right">
-              <span class="summary-lbl">OVERALL AVERAGE CONFIDENCE</span>
-              <span class="summary-val highlight" id="overallConfidenceVal">0.0%</span>
-            </div>
-          </div>
-
-          <!-- Annotated Output Image -->
-          <div class="annotated-image-container">
-            <div class="annotated-image-header">
-              <span class="ai-label">ANNOTATED VISUALIZATION</span>
-              <button id="btnDownload" class="btn-download">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                Download Processed Image
-              </button>
-            </div>
-            <div class="annotated-img-frame">
-              <img id="annotatedImage" alt="Annotated Tower Detection" class="annotated-img">
-            </div>
-          </div>
-
-          <!-- Bounding Box Telemetry Table -->
-          <div class="table-container">
-            <div class="table-title">BOUNDING BOX TELEMETRY</div>
-            <table class="telemetry-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Component Class</th>
-                  <th>Confidence</th>
-                  <th>Bounding Box [x, y, width, height]</th>
-                </tr>
-              </thead>
-              <tbody id="telemetryTableBody">
-                <!-- Dynamically populated -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </section>
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <span>AI TowerVision • AI Infrastructure Inspection Platform</span>
+      <span>YOLOv8 • OpenCV • FastAPI</span>
     </div>
-  </main>
+  </footer>
 
   <script src="/static/app.js"></script>
 </body>
